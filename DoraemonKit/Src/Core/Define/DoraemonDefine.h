@@ -15,7 +15,6 @@
 #import "UIImage+Doraemon.h"
 #import "Doraemoni18NUtil.h"
 
-
 #define DoraemonScreenWidth [UIScreen mainScreen].bounds.size.width
 #define DoraemonScreenHeight [UIScreen mainScreen].bounds.size.height
 
@@ -27,7 +26,6 @@
 #define IPHONE_STATUSBAR_HEIGHT      (IS_IPHONE_X ? 44 : 20)
 #define IPHONE_SAFEBOTTOMAREA_HEIGHT (IS_IPHONE_X ? 34 : 0)
 #define IPHONE_TOPSENSOR_HEIGHT      (IS_IPHONE_X ? 32 : 0)
-
 
 #define DoraemonShowPluginNotification @"DoraemonShowPluginNotification"
 #define DoraemonClosePluginNotification @"DoraemonClosePluginNotification"

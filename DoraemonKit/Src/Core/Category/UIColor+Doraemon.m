@@ -13,10 +13,12 @@ CGFloat doraemonColorComponentFrom(NSString *string, NSUInteger start, NSUIntege
     
     unsigned hexComponent;
     [[NSScanner scannerWithString: fullHex] scanHexInt: &hexComponent];
-    return hexComponent / 255.0;
+    return hexComponent / 255.f;
 }
 
 @implementation UIColor (DoreamonKit)
+
+#pragma mark - Queries
 
 - (CGColorSpaceModel)colorSpaceModel {
     return CGColorSpaceGetModel(CGColorGetColorSpace(self.CGColor));
@@ -65,6 +67,7 @@ CGFloat doraemonColorComponentFrom(NSString *string, NSUInteger start, NSUIntege
 + (UIColor *)doraemon_colorWithHex:(UInt32)hex{
     return [UIColor doraemon_colorWithHex:hex andAlpha:1];
 }
+
 + (UIColor *)doraemon_colorWithHex:(UInt32)hex andAlpha:(CGFloat)alpha{
     return [UIColor colorWithRed:((hex >> 16) & 0xFF)/255.0
                            green:((hex >> 8) & 0xFF)/255.0
@@ -87,21 +90,18 @@ CGFloat doraemonColorComponentFrom(NSString *string, NSUInteger start, NSUIntege
             green = doraemonColorComponentFrom(colorString, 1, 1);
             blue  = doraemonColorComponentFrom(colorString, 2, 1);
             break;
-            
         case 4: // #ARGB
             alpha = doraemonColorComponentFrom(colorString, 0, 1);
             red   = doraemonColorComponentFrom(colorString, 1, 1);
             green = doraemonColorComponentFrom(colorString, 2, 1);
             blue  = doraemonColorComponentFrom(colorString, 3, 1);
             break;
-            
         case 6: // #RRGGBB
             alpha = 1.0f;
             red   = doraemonColorComponentFrom(colorString, 0, 2);
             green = doraemonColorComponentFrom(colorString, 2, 2);
             blue  = doraemonColorComponentFrom(colorString, 4, 2);
             break;
-            
         case 8: // #AARRGGBB
             alpha = doraemonColorComponentFrom(colorString, 0, 2);
             red   = doraemonColorComponentFrom(colorString, 2, 2);
@@ -115,23 +115,23 @@ CGFloat doraemonColorComponentFrom(NSString *string, NSUInteger start, NSUIntege
     return [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
 }
 
-+ (UIColor *)doraemon_black_1{//#333333
++ (UIColor *)doraemon_black_1 {
     return [UIColor doraemon_colorWithString:@"#333333"];
 }
 
-+ (UIColor *)doraemon_black_2{//#666666
++ (UIColor *)doraemon_black_2 {
     return [UIColor doraemon_colorWithString:@"#666666"];
 }
 
-+ (UIColor *)doraemon_black_3{//#999999
++ (UIColor *)doraemon_black_3 {
     return [UIColor doraemon_colorWithString:@"#999999"];
 }
 
-+ (UIColor *)doraemon_blue{//#337CC4
++ (UIColor *)doraemon_blue {
     return [UIColor doraemon_colorWithString:@"#337CC4"];
 }
 
-+ (UIColor *)doraemon_line{//[UIColor doraemon_colorWithHex:0x000000 andAlpha:0.1];
++ (UIColor *)doraemon_line {
     return [UIColor doraemon_colorWithHex:0x000000 andAlpha:0.1];
 }
 

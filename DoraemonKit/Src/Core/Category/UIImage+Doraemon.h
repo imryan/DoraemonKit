@@ -9,9 +9,11 @@
 
 @interface UIImage (Doraemon)
 
+/**
+ 压缩图片尺寸 等比缩放 通过计算得到缩放系数
+ Compressed image size, proportional scaling, calculated by scaling factor
+ */
+- (UIImage *)doraemon_scaledToSize:(CGSize)newSize;
 + (UIImage *)doraemon_imageNamed:(NSString *)name;
-
-//压缩图片尺寸 等比缩放 通过计算得到缩放系数
-- (UIImage*)doraemon_scaledToSize:(CGSize)newSize;
 
 @end
