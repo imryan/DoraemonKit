@@ -75,7 +75,7 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
         [DoraemonCrashUncaughtExceptionHandler registerHandler];
         [DoraemonCrashSignalExceptionHandler registerHandler];
     }
-
+    
     //重新启动的时候，把帧率、CPU、内存和流量监控关闭
     [[DoraemonCacheManager sharedInstance] saveFpsSwitch:NO];
     [[DoraemonCacheManager sharedInstance] saveCpuSwitch:NO];
@@ -120,7 +120,7 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
     
     //统计开源项目使用量 不用于任何恶意行为
     [DoraemonStatisticsUtil upLoadUserInfo];
-
+    
 }
 
 
@@ -128,17 +128,57 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
  初始化内置工具数据
  */
 - (void)initData{
+    [self addPluginWithTitle:DoraemonLocalizedString(@"App信息")
+                        icon:@"doraemon_app_info"
+                        desc:DoraemonLocalizedString(@"App的一些基本信息")
+                  pluginName:@"DoraemonAppInfoPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
     
-    [self addPluginWithTitle:DoraemonLocalizedString(@"App信息") icon:@"doraemon_app_info" desc:DoraemonLocalizedString(@"App的一些基本信息") pluginName:@"DoraemonAppInfoPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:DoraemonLocalizedString(@"沙盒浏览") icon:@"doraemon_file" desc:DoraemonLocalizedString(@"沙盒浏览") pluginName:@"DoraemonSandboxPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:@"MockGPS" icon:@"doraemon_mock_gps" desc:@"mock GPS" pluginName:@"DoraemonGPSPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:DoraemonLocalizedString(@"H5任意门") icon:@"doraemon_h5" desc:DoraemonLocalizedString(@"H5通用跳转") pluginName:@"DoraemonH5Plugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:DoraemonLocalizedString(@"Crash查看") icon:@"doraemon_crash" desc:DoraemonLocalizedString(@"Crash本地查看") pluginName:@"DoraemonCrashPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:DoraemonLocalizedString(@"子线程UI") icon:@"doraemon_ui" desc:DoraemonLocalizedString(@"非主线程UI渲染检查") pluginName:@"DoraemonSubThreadUICheckPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:DoraemonLocalizedString(@"清除本地数据") icon:@"doraemon_qingchu" desc:DoraemonLocalizedString(@"清除本地数据") pluginName:@"DoraemonDeleteLocalDataPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
-    [self addPluginWithTitle:DoraemonLocalizedString(@"NSLog") icon:@"doraemon_nslog" desc:DoraemonLocalizedString(@"NSLog") pluginName:@"DoraemonNSLogPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
+    [self addPluginWithTitle:DoraemonLocalizedString(@"沙盒浏览")
+                        icon:@"doraemon_file" desc:DoraemonLocalizedString(@"沙盒浏览")
+                  pluginName:@"DoraemonSandboxPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
+    [self addPluginWithTitle:@"MockGPS"
+                        icon:@"doraemon_mock_gps"
+                        desc:@"mock GPS" pluginName:@"DoraemonGPSPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
+    [self addPluginWithTitle:DoraemonLocalizedString(@"H5任意门")
+                        icon:@"doraemon_h5"
+                        desc:DoraemonLocalizedString(@"H5通用跳转")
+                  pluginName:@"DoraemonH5Plugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
+    [self addPluginWithTitle:DoraemonLocalizedString(@"Crash查看")
+                        icon:@"doraemon_crash"
+                        desc:DoraemonLocalizedString(@"Crash本地查看")
+                  pluginName:@"DoraemonCrashPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
+    [self addPluginWithTitle:DoraemonLocalizedString(@"子线程UI")
+                        icon:@"doraemon_ui" desc:DoraemonLocalizedString(@"非主线程UI渲染检查")
+                  pluginName:@"DoraemonSubThreadUICheckPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
+    [self addPluginWithTitle:DoraemonLocalizedString(@"清除本地数据")
+                        icon:@"doraemon_qingchu"
+                        desc:DoraemonLocalizedString(@"清除本地数据")
+                  pluginName:@"DoraemonDeleteLocalDataPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
+    [self addPluginWithTitle:DoraemonLocalizedString(@"NSLog")
+                        icon:@"doraemon_nslog"
+                        desc:DoraemonLocalizedString(@"NSLog")
+                  pluginName:@"DoraemonNSLogPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
+    
 #if DoraemonWithLogger
-    [self addPluginWithTitle:@"Lumberjack" icon:@"doraemon_log" desc:DoraemonLocalizedString(@"日志显示") pluginName:@"DoraemonCocoaLumberjackPlugin" atModule:DoraemonLocalizedString(@"常用工具")];
+    [self addPluginWithTitle:@"Lumberjack"
+                        icon:@"doraemon_log"
+                        desc:DoraemonLocalizedString(@"日志显示")
+                  pluginName:@"DoraemonCocoaLumberjackPlugin"
+                    atModule:DoraemonLocalizedString(@"常用工具")];
 #endif
     
     [self addPluginWithTitle:DoraemonLocalizedString(@"帧率") icon:@"doraemon_fps" desc:DoraemonLocalizedString(@"帧率监控") pluginName:@"DoraemonFPSPlugin" atModule:DoraemonLocalizedString(@"性能检测")];
@@ -208,22 +248,23 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
     _entryView.hidden = YES;
 }
 
-- (void)addH5DoorBlock:(void(^)(NSString *h5Url))block{
+- (void)addH5DoorBlock:(void(^)(NSString *h5Url))block {
     self.h5DoorBlock = block;
 }
 
-- (void)addANRBlock:(void(^)(NSDictionary *anrDic))block{
+- (void)addANRBlock:(void(^)(NSDictionary *anrDic))block {
     self.anrBlock = block;
 }
 
-- (void)addperformanceBlock:(void(^)(NSDictionary *performanceDic))block{
+- (void)addperformanceBlock:(void(^)(NSDictionary *performanceDic))block {
     self.performanceBlock = block;
 }
 
 - (void)h5DoorPluginClick:(NSNotification *)noti{
     NSDictionary *userInfo = noti.userInfo;
     NSString *h5Url = userInfo[@"h5Url"];
-    if (h5Url.length>0 && self.h5DoorBlock) {
+    
+    if (h5Url.length > 0 && self.h5DoorBlock) {
         self.h5DoorBlock(h5Url);
     }
 }
@@ -231,16 +272,17 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
 - (void)quickOpenLogVC:(NSNotification *)noti{
     NSDictionary *userInfo = noti.userInfo;
     NSInteger from = [userInfo[@"from"] integerValue];
-    if (from == DoraemonStateBarFromNSLog) {//快速打开NSLog list页面
-        DoraemonNSLogViewController *vc = [[DoraemonNSLogViewController alloc] init];
+    
+    if (from == DoraemonStateBarFromNSLog) { // 快速打开NSLog list页面
+        DoraemonNSLogViewController *vc = [DoraemonNSLogViewController new];
         [DoraemonUtil openPlugin:vc];
-        DoraemonNSLogListViewController *vcList = [[DoraemonNSLogListViewController alloc] init];
+        DoraemonNSLogListViewController *vcList = [DoraemonNSLogListViewController new];
         [vc.navigationController pushViewController:vcList animated:NO];
-    }else{//快速打开CocoaLumberjack list页面
+    } else {//快速打开CocoaLumberjack list页面
 #if DoraemonWithLogger
-        DoraemonCocoaLumberjackViewController *vc = [[DoraemonCocoaLumberjackViewController alloc] init];
+        DoraemonCocoaLumberjackViewController *vc = [DoraemonCocoaLumberjackViewController new];
         [DoraemonUtil openPlugin:vc];
-        DoraemonCocoaLumberjackListViewController *vcList = [[DoraemonCocoaLumberjackListViewController alloc] init];
+        DoraemonCocoaLumberjackListViewController *vcList = [DoraemonCocoaLumberjackListViewController new];
         [vc.navigationController pushViewController:vcList animated:NO];
 #endif
     }
@@ -249,6 +291,5 @@ typedef void (^DoraemonPerformanceBlock)(NSDictionary *);
 - (void)hiddenHomeWindow{
     [[DoraemonHomeWindow shareInstance] hide];
 }
-
 
 @end

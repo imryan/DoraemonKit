@@ -35,16 +35,11 @@ NSDictionary *DoraemonLanguageCode_ISO639CodeMap() {
         return key;
     }
     
-    // Fix language key for English (US) in ISO639 code map
-    if ([language isEqualToString: @"en"]) {
-        language = @"en-US";
-    }
-    
     NSString *fileNamePrefix = DoraemonLanguageCode_ISO639CodeMap()[language];
     if (fileNamePrefix.length == 0) {
         if ([language hasPrefix:@"zh-"]) {
             fileNamePrefix = @"zh-Hans";
-        } else if ([language hasPrefix:@"en-"]) {
+        } else if ([language hasPrefix:@"en"] || [language hasPrefix:@"en-"]) {
             fileNamePrefix = @"en";
         }
     }
