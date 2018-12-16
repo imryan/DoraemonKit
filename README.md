@@ -99,7 +99,7 @@ Taking our app as an example, after clicking the button, it will enter the envir
 ```
 @implementation KDDoraemonEnvPlugin
 - (void)pluginDidLoad{
-    [APP_INTERACOTR.rootNav openURL:@"KDSJ://KDDoraemonSFViewController"];
+    [APP_INTERACTOR.rootNav openURL:@"KDSJ://KDDoraemonSFViewController"];
     [[DoraemonManager shareInstance] hiddenHomeWindow];
 }
  @end
@@ -126,7 +126,7 @@ Take our App as an example:
 - (void)configDoraemonKit{
     [[DoraemonManager shareInstance] addPluginWithTitle:@"环境切换" icon:@"qiehuang" desc:@"用于app内部环境切换功能" pluginName:@"KDDoraemonEnvPlugin" atModule:@"业务专区"];
     [[DoraemonManager shareInstance] addH5DoorBlock:^(NSString *h5Url) {
-        [APP_INTERACOTR.rootNav openURL:@"KDSJ://KDWebViewController" withQuery:@{@"urlString":h5Url}];
+        [APP_INTERACTOR.rootNav openURL:@"KDSJ://KDWebViewController" withQuery:@{@"urlString":h5Url}];
     }];
     [[DoraemonManager shareInstance] install];
 }
