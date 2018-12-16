@@ -19,25 +19,23 @@ NSString *const DoraemonlanguageENCN = @"en-CN";
 NSString *const DoraemonlanguageZHHK = @"zh-HK";
 
 NSDictionary *DoraemonLanguageCode_ISO639CodeMap() {
-    NSDictionary *dict = @{
-                           DoraemonlanguageZHCN : @"zh-Hans",
-                           DoraemonlanguageZHHansCN : @"zh-Hans",
-                           DoraemonlanguageZHHK : @"zh-Han",
-                           DoraemonlanguageENUS : @"en",
-                           DoraemonlanguageENCN : @"en" };
-    return dict;
+    return @{
+             DoraemonlanguageZHCN : @"zh-Hans",
+             DoraemonlanguageZHHansCN : @"zh-Hans",
+             DoraemonlanguageZHHK : @"zh-Han",
+             DoraemonlanguageENUS : @"en",
+             DoraemonlanguageENCN : @"en" };
 }
 
 @implementation Doraemoni18NUtil
 
 + (NSString *)localizedString:(NSString *)key {
-    //暂时不支持国际化
     NSString *language = [[NSLocale preferredLanguages] firstObject];
     if (language.length == 0) {
         return key;
     }
     
-    // Fix key for English (US) in ISO639 code map
+    // Fix language key for English (US) in ISO639 code map
     if ([language isEqualToString: @"en"]) {
         language = @"en-US";
     }
@@ -51,14 +49,15 @@ NSDictionary *DoraemonLanguageCode_ISO639CodeMap() {
         }
     }
     
-    NSBundle *tmp = [NSBundle bundleWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.bundle/", @"DoraemonKit"]]];
-    NSString *path = [tmp pathForResource:fileNamePrefix ofType:@"lproj"];
-    NSBundle *bundle = [NSBundle bundleWithPath:path];
-    NSString *localizedString = [bundle localizedStringForKey:key value:nil table:@"Doraemon"];
+    NSBundle *tmp = [NSBundle bundleWithPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent: [NSString stringWithFormat:@"%@.bundle/", @"DoraemonKit"]]];
+    NSString *path = [tmp pathForResource: fileNamePrefix ofType: @"lproj"];
+    NSBundle *bundle = [NSBundle bundleWithPath: path];
+    NSString *localizedString = [bundle localizedStringForKey: key value: nil table: @"Doraemon"];
     
     if (!localizedString) {
         localizedString = key;
     }
+    
     return localizedString;
 }
 

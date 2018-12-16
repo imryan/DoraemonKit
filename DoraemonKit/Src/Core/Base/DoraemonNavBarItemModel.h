@@ -6,6 +6,7 @@
 //
 
 #import <Foundation/Foundation.h>
+
 typedef NS_ENUM(NSUInteger, DoraemonNavBarItemType) {
     DoraemonNavBarItemTypeText = 0,
     DoraemonNavBarItemTypeImage,

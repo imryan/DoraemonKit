@@ -13,43 +13,33 @@
 + (DoraemonCacheManager *)sharedInstance;
 
 - (void)saveLoggerSwitch:(BOOL)on;
-
-- (BOOL)loggerSwitch;
-
 - (void)saveMockGPSSwitch:(BOOL)on;
 
+- (BOOL)loggerSwitch;
 - (BOOL)mockGPSSwitch;
 
 - (void)saveMockCoordinate:(CLLocationCoordinate2D)coordinate;
-
-- (CLLocationCoordinate2D)mockCoordinate;
-
 - (void)saveFpsSwitch:(BOOL)on;
 
+- (CLLocationCoordinate2D)mockCoordinate;
 - (BOOL)fpsSwitch;
 
 - (void)saveCpuSwitch:(BOOL)on;
-
-- (BOOL)cpuSwitch;
-
 - (void)saveMemorySwitch:(BOOL)on;
 
+- (BOOL)cpuSwitch;
 - (BOOL)memorySwitch;
 
 - (void)saveNetFlowSwitch:(BOOL)on;
-
-- (BOOL)netFlowSwitch;
-
 - (void)saveSubThreadUICheckSwitch:(BOOL)on;
 
+- (BOOL)netFlowSwitch;
 - (BOOL)subThreadUICheckSwitch;
 
 - (void)saveCrashSwitch:(BOOL)on;
-
-- (BOOL)crashSwitch;
-
 - (void)saveNSLogSwitch:(BOOL)on;
 
+- (BOOL)crashSwitch;
 - (BOOL)nsLogSwitch;
 
 @end

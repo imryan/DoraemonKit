@@ -20,142 +20,135 @@ static NSString * const kDoraemonNSLogKey = @"doraemon_nslog_key";
 
 @implementation DoraemonCacheManager
 
+#pragma mark - Shared Instance
+
 + (DoraemonCacheManager *)sharedInstance{
     static dispatch_once_t once;
     static DoraemonCacheManager *instance;
+    
     dispatch_once(&once, ^{
-        instance = [[DoraemonCacheManager alloc] init];
+        instance = [DoraemonCacheManager new];
     });
+    
     return instance;
 }
 
-- (void)saveLoggerSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonLoggerSwitchKey];
-    [defaults synchronize];
+#pragma mark - Functions
+
+- (void)saveLoggerSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonLoggerSwitchKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)loggerSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonLoggerSwitchKey];
-
+- (BOOL)loggerSwitch {
+    [[self userDefaults] boolForKey:kDoraemonLoggerSwitchKey];
 }
 
-- (void)saveMockGPSSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonMockGPSSwitchKey];
-    [defaults synchronize];
+- (void)saveMockGPSSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonMockGPSSwitchKey];
+    [[self userDefaults] synchronize];
 }
 
 - (BOOL)mockGPSSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonMockGPSSwitchKey];
+    [[self userDefaults] boolForKey:kDoraemonMockGPSSwitchKey];
 }
 
-- (void)saveMockCoordinate:(CLLocationCoordinate2D)coordinate{
+- (void)saveMockCoordinate:(CLLocationCoordinate2D)coordinate {
     NSDictionary *dic = @{
-                          @"longitude":@(coordinate.longitude),
-                          @"latitude":@(coordinate.latitude)
+                          @"longitude" : @(coordinate.longitude),
+                          @"latitude" : @(coordinate.latitude)
                           };
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:dic forKey:kDoraemonMockCoordinateKey];
-    [defaults synchronize];
+    
+    [[self userDefaults] setObject:dic forKey:kDoraemonMockCoordinateKey];
+    [[self userDefaults] synchronize];
 }
 
-- (CLLocationCoordinate2D)mockCoordinate{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *dic = [defaults valueForKey:kDoraemonMockCoordinateKey];
-    CLLocationCoordinate2D coordinate ;
-    if (dic[@"longitude"]) {
+- (CLLocationCoordinate2D)mockCoordinate {
+    NSDictionary *dic = [[self userDefaults] valueForKey:kDoraemonMockCoordinateKey];
+    CLLocationCoordinate2D coordinate;
+    
+    if (dic[@"longitude"] != nil) {
         coordinate.longitude = [dic[@"longitude"] doubleValue];
-    }else{
+    } else {
         coordinate.longitude = -1.;
     }
-    if (dic[@"latitude"]) {
+    
+    if (dic[@"latitude"] != nil) {
         coordinate.latitude = [dic[@"latitude"] doubleValue];
-    }else{
+    } else {
         coordinate.latitude = -1.;
     }
     
     return coordinate;
 }
 
-- (void)saveFpsSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonFpsKey];
-    [defaults synchronize];
+- (void)saveFpsSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonFpsKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)fpsSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonFpsKey];
+- (BOOL)fpsSwitch {
+    [[self userDefaults] boolForKey:kDoraemonFpsKey];
 }
 
-- (void)saveCpuSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonCpuKey];
-    [defaults synchronize];
+- (void)saveCpuSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonCpuKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)cpuSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonCpuKey];
+- (BOOL)cpuSwitch {
+    [[self userDefaults] boolForKey:kDoraemonCpuKey];
 }
 
-- (void)saveMemorySwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonMemoryKey];
-    [defaults synchronize];
+- (void)saveMemorySwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonMemoryKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)memorySwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonMemoryKey];
+- (BOOL)memorySwitch {
+    [[self userDefaults] boolForKey:kDoraemonMemoryKey];
 }
 
-- (void)saveNetFlowSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonNetFlowKey];
-    [defaults synchronize];
+- (void)saveNetFlowSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonNetFlowKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)netFlowSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonNetFlowKey];
+- (BOOL)netFlowSwitch {
+    [[self userDefaults] boolForKey:kDoraemonNetFlowKey];
 }
 
-- (void)saveSubThreadUICheckSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonSubThreadUICheckKey];
-    [defaults synchronize];
+- (void)saveSubThreadUICheckSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonSubThreadUICheckKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)subThreadUICheckSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonSubThreadUICheckKey];
+- (BOOL)subThreadUICheckSwitch {
+    [[self userDefaults] boolForKey:kDoraemonSubThreadUICheckKey];
 }
 
-- (void)saveCrashSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonCrashKey];
-    [defaults synchronize];
+- (void)saveCrashSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonCrashKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)crashSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonCrashKey];
+- (BOOL)crashSwitch {
+    [[self userDefaults] boolForKey:kDoraemonCrashKey];
 }
 
-- (void)saveNSLogSwitch:(BOOL)on{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:on forKey:kDoraemonNSLogKey];
-    [defaults synchronize];
+- (void)saveNSLogSwitch:(BOOL)on {
+    [[self userDefaults] setBool:on forKey:kDoraemonNSLogKey];
+    [[self userDefaults] synchronize];
 }
 
-- (BOOL)nsLogSwitch{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    return [defaults boolForKey:kDoraemonNSLogKey];
+- (BOOL)nsLogSwitch {
+    return [[self userDefaults] boolForKey:kDoraemonNSLogKey];
 }
 
+#pragma mark - Helpers
+
+- (NSUserDefaults *)userDefaults {
+    return [NSUserDefaults standardUserDefaults];
+}
 
 @end

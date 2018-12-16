@@ -14,7 +14,6 @@
 #import "DoraemonDefine.h"
 
 @interface DoraemonBaseViewController() <DoraemonBaseBigTitleViewDelegate>
-
 @end
 
 @implementation DoraemonBaseViewController
@@ -38,6 +37,7 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
     self.navigationController.navigationBarHidden = [self needBigTitleView];
     [[DoraemonHomeWindow shareInstance] makeKeyWindow];
 }
@@ -45,30 +45,27 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    
     UIWindow *appWindow = [[UIApplication sharedApplication].delegate window];
     [appWindow makeKeyWindow];
 }
 
-//是否需要大标题，默认不需要
-- (BOOL)needBigTitleView{
-    return NO;
-}
+#pragma mark - Functions
 
-- (void)setTitle:(NSString *)title{
+- (void)setTitle:(NSString *)title {
     if (_bigTitleView && !_bigTitleView.hidden) {
         [_bigTitleView setTitle:title];
-    }else{
+    } else {
         [super setTitle:title];
     }
 }
 
-- (void)leftNavBackClick:(id)clickView{
-    if (self.navigationController.viewControllers.count==1) {
+- (void)leftNavBackClick:(id)clickView {
+    if (self.navigationController.viewControllers.count == 1) {
         [[DoraemonHomeWindow shareInstance] hide];
-    }else{
+    } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
-    
 }
 
 - (void)setLeftNavBarItems:(NSArray *)items{
@@ -78,8 +75,16 @@
     }
 }
 
+#pragma mark - Queries
+
+//是否需要大标题，默认不需要
+- (BOOL)needBigTitleView {
+    return NO;
+}
+
 - (NSArray *)navigationItems:(NSArray *)items {
     NSMutableArray *barItems = [NSMutableArray array];
+    
     //距离左右的间距
     UIBarButtonItem *spacer = [self getSpacerByWidth:-10];
     [barItems addObject:spacer];
@@ -110,7 +115,7 @@
 /**
  * 获取间距
  */
-- (UIBarButtonItem *)getSpacerByWidth : (CGFloat)width {
+- (UIBarButtonItem *)getSpacerByWidth:(CGFloat)width {
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                target:nil action:nil];
