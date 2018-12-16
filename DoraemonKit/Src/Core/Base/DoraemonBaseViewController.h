@@ -11,11 +11,14 @@
 
 @interface DoraemonBaseViewController : UIViewController
 
-//是否需要大标题，默认不需要
-- (BOOL)needBigTitleView;
 @property (nonatomic, strong) DoraemonBaseBigTitleView *bigTitleView;
 
 - (void)setLeftNavBarItems:(NSArray *)items;
 - (void)leftNavBackClick:(id)clickView;
+
+/**
+ 是否需要大标题，默认不需要
+ */
+- (BOOL)needBigTitleView;
 
 @end

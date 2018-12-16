@@ -13,26 +13,23 @@
 #import "UIView+Doraemon.h"
 #import "DoraemonDefine.h"
 
-@interface DoraemonBaseViewController ()<DoraemonBaseBigTitleViewDelegate>
+@interface DoraemonBaseViewController() <DoraemonBaseBigTitleViewDelegate>
 
 @end
 
 @implementation DoraemonBaseViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-//    if ([self respondsToSelector:@selector(setEdgesForExtendedLayout:)]) {
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//    }
-//    [self.navigationController.navigationBar setTranslucent:NO];
-//
-  
+    
     if ([self needBigTitleView]) {
-        _bigTitleView = [[DoraemonBaseBigTitleView alloc] initWithFrame:CGRectMake(0, 0, self.view.doraemon_width, kDoraemonSizeFrom750(178))];
+        _bigTitleView = [[DoraemonBaseBigTitleView alloc] initWithFrame: CGRectMake(0, 0, self.view.doraemon_width, kDoraemonSizeFrom750(178))];
         _bigTitleView.delegate = self;
         [self.view addSubview:_bigTitleView];
-    }else{
+    } else {
         DoraemonNavBarItemModel *leftModel = [[DoraemonNavBarItemModel alloc] initWithImage:[UIImage doraemon_imageNamed:@"doraemon_back"] selector:@selector(leftNavBackClick:)];
         
         [self setLeftNavBarItems:@[leftModel]];
@@ -81,40 +78,39 @@
     }
 }
 
-- (NSArray *)navigationItems:(NSArray *)items{
+- (NSArray *)navigationItems:(NSArray *)items {
     NSMutableArray *barItems = [NSMutableArray array];
     //距离左右的间距
     UIBarButtonItem *spacer = [self getSpacerByWidth:-10];
     [barItems addObject:spacer];
     
-    for (int i=0; i<items.count; i++) {
-        
+    for (int i = 0; i < items.count; i++) {
         DoraemonNavBarItemModel *model = items[i];
         UIBarButtonItem *barItem;
-        if (model.type == DoraemonNavBarItemTypeText) {//文字按钮
-            barItem = [[UIBarButtonItem alloc] initWithTitle:model.text style:UIBarButtonItemStylePlain target:self action:model.selector];
+        if (model.type == DoraemonNavBarItemTypeText) { //文字按钮
+            barItem = [[UIBarButtonItem alloc] initWithTitle: model.text style: UIBarButtonItemStylePlain
+                                                      target: self action: model.selector];
             barItem.tintColor = model.textColor;
-        }else if(model.type == DoraemonNavBarItemTypeImage){//图片按钮
-            UIImage *image = [model.image imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];//设置图片没有默认蓝色效果
-            //默认的间距太大
-            //            barItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:model.selector];
-            
-            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn setImage:image forState:UIControlStateNormal];
-            [btn addTarget:self action:model.selector forControlEvents:UIControlEventTouchUpInside];
-            btn.frame = CGRectMake(0, 0, 30, 30);
-            btn.clipsToBounds = YES;
-            barItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
+        } else if (model.type == DoraemonNavBarItemTypeImage) { //图片按钮
+            //设置图片没有默认蓝色效果 默认的间距太大
+            UIImage *image = [model.image imageWithRenderingMode: UIImageRenderingModeAlwaysOriginal];
+            UIButton *button = [UIButton buttonWithType: UIButtonTypeCustom];
+            [button setImage: image forState:UIControlStateNormal];
+            [button addTarget:self action: model.selector forControlEvents: UIControlEventTouchUpInside];
+            button.frame = CGRectMake(0, 0, 30, 30);
+            button.clipsToBounds = YES;
+            barItem = [[UIBarButtonItem alloc] initWithCustomView: button];
         }
         [barItems addObject:barItem];
     }
+    
     return barItems;
 }
 
 /**
  * 获取间距
  */
-- (UIBarButtonItem *)getSpacerByWidth : (CGFloat)width{
+- (UIBarButtonItem *)getSpacerByWidth : (CGFloat)width {
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc]
                                initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
                                target:nil action:nil];
@@ -127,7 +123,8 @@
 }
 
 #pragma mark - DoraemonBaseBigTitleViewDelegate
-- (void)bigTitleCloseClick{
+
+- (void)bigTitleCloseClick {
     [self leftNavBackClick:nil];
 }
 
